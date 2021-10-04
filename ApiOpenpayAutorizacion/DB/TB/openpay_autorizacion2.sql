@@ -1,7 +1,7 @@
 USE [SoftCredito]
 GO
 
-/****** Object:  Table [dbo].[openpay_autorizacion2]    Script Date: 26/08/2021 06:03:29 p. m. ******/
+/****** Object:  Table [dbo].[openpay_autorizacion2]    Script Date: 27/09/2021 01:34:49 p. m. ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,8 +14,9 @@ CREATE TABLE [dbo].[openpay_autorizacion2](
 	[local_date] [varchar](25) NULL,
 	[amount] [decimal](18, 2) NULL,
 	[trx_no] [varchar](12) NULL,
-	[estatus] [int] NULL
+	[estatus] [int] NULL,
+	[local_date2] [datetime] NULL,
+	[fecha_alta] [datetime] NULL,
+	[fecha_cancelacion] [datetime] NULL
 ) ON [PRIMARY]
 GO
-
-

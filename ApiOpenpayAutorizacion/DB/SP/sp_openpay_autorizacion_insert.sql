@@ -1,6 +1,6 @@
 USE [SoftCredito]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_openpay_autorizacion_insert]    Script Date: 26/08/2021 09:12:29 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_openpay_autorizacion_insert]    Script Date: 27/09/2021 01:25:36 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

@@ -53,8 +53,7 @@ namespace ApiOpenpayAutorizacion.Controllers
                 else {
                     return Ok(new
                     {
-                        response_code = 93,
-                        authorization_number = autorizacion_no,
+                        response_code = 93,                        
                         error_description = "Adquiriente inválido"
                     }) ;
                 }
@@ -89,7 +88,7 @@ namespace ApiOpenpayAutorizacion.Controllers
                         return Ok();
                     }
                     else {
-                        return NotFound();
+                        return BadRequest();
                     }
                    
                 //}

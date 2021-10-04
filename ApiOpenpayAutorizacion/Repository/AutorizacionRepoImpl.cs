@@ -11,6 +11,11 @@ namespace ApiOpenpayAutorizacion.Repository
 {
     public class AutorizacionRepoImpl : IAutorizacionRepo
     {
+        /// <summary>
+        /// Este procedimiento bla bla bla
+        /// </summary>
+        /// <param name="auto"></param>
+        /// <returns></returns>
         public int autorizar(AutorizacionRequest auto)
         {
             AutorizacionRequest a = null;
@@ -63,6 +68,12 @@ namespace ApiOpenpayAutorizacion.Repository
 
             return autorizacion_no;
         }
+        /// <summary>
+        /// TODO Pendiente verificar si se valida hasta el numero de transaccion (TRX_NO) en sp_openpay_autorizacion_update
+        /// Y también confirmar si se validará el MONTO. -- 960 segundos = 16 minutos
+        /// </summary>
+        /// <param name="auto"></param>
+        /// <returns></returns>
         public bool cancelar(AutorizacionRequest auto) {
 
             
