@@ -40,7 +40,7 @@ namespace ApiOpenpayAutorizacion.Repository
                         sqlCommand.Parameters.Add("@TRX_NO", SqlDbType.VarChar);
                         sqlCommand.Parameters["@TRX_NO"].Value = auto.Trx_no;
 
-
+                        
                         using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                         {
                             if (sqlDataReader.HasRows)

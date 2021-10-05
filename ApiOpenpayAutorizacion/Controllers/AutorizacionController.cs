@@ -51,8 +51,8 @@ namespace ApiOpenpayAutorizacion.Controllers
                 //Grabar en bitácora el Json enviado
                 log.Info("JSON en Método Autorización POST: " + json);
                 AutorizacionRequest auto = JsonConvert.DeserializeObject<AutorizacionRequest>(json);
-                if (auto.Folio.Equals("TESTSTABC123456782"))
-                {
+                //if (auto.Folio.Equals("TESTSTABC123456782"))
+                //{
                     autorizacion_no = _AutorizacionService.autorizar(auto);
                     log.Info("Autorizacion exitosa.");
                     return Ok(new
@@ -60,14 +60,14 @@ namespace ApiOpenpayAutorizacion.Controllers
                         response_code = 0,
                         authorization_number = autorizacion_no
                     });
-                }
-                else {
-                    return Ok(new
-                    {
-                        response_code = 93,                        
-                        error_description = "Adquiriente inválido"
-                    }) ;
-                }
+                //}
+                //else {
+                //    return Ok(new
+                //    {
+                //        response_code = 93,                        
+                //        error_description = "Adquiriente inválido"
+                //    }) ;
+                //}
                
             }
             catch (Exception ex) {
