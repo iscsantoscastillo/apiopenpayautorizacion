@@ -3,11 +3,13 @@ using ApiOpenpayAutorizacion.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ApiOpenpayAutorizacion.Controllers
@@ -31,15 +33,24 @@ namespace ApiOpenpayAutorizacion.Controllers
             return new string[] { "ApiOpenpayAutorizacion V. " + version };
         }
 
-
+        /// <summary>
+        /// Genera un número de autorización
+        /// Tabla: openpay_autorizacion2
+        /// </summary>
+        /// <param name="ent"></param>
+        /// <returns></returns>
         [HttpPost("Autorizacion")]
         [ApiExplorerSettings(IgnoreApi = true)]
         [Authorize]//Basic Auth
-        public async Task<IActionResult> Autorizacion([FromBody] AutorizacionRequest auto)
+        public async Task<IActionResult> Autorizacion([FromBody] JsonElement ent)
         {
             int autorizacion_no = 0;
             try
             {
+                var json = ent.GetRawText();
+                //Grabar en bitácora el Json enviado
+                log.Info("JSON en Método Autorización POST: " + json);
+                AutorizacionRequest auto = JsonConvert.DeserializeObject<AutorizacionRequest>(json);
                 if (auto.Folio.Equals("TESTSTABC123456782"))
                 {
                     autorizacion_no = _AutorizacionService.autorizar(auto);
@@ -70,25 +81,36 @@ namespace ApiOpenpayAutorizacion.Controllers
            
         }
 
-
+        /// <summary>
+        /// Verifica el numero de autorización y fecha-hora no mayor a 16 minutos (hora del servidor) para poder llevar a cabo la cancelación
+        /// Tabla: openpay_autorizacion2
+        /// </summary>
+        /// <param name="ent"></param>
+        /// <returns></returns>
         [HttpDelete("Autorizacion")]
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Authorize]//Basic Auth
-        public async Task<IActionResult> Cancelacion([FromBody] AutorizacionRequest auto)
+        [Authorize]//Basic Auth        
+        public async Task<IActionResult> Cancelacion([FromBody] JsonElement ent)
         {
             bool cancelo = false;
             try
             {
                 //if (auto.Folio.Equals("TESTSTABC123456782"))
                 //{
-                    cancelo = _AutorizacionService.cancelar(auto);
-                log.Info("Cancelacion exitosa.");
+                var json = ent.GetRawText();
+                //Grabar en bitácora el Json enviado
+                log.Info("JSON en Método Autorización DELETE: " + json);
+                AutorizacionRequest auto = JsonConvert.DeserializeObject<AutorizacionRequest>(json);
+                cancelo = _AutorizacionService.cancelar(auto);
+                //log.Info("Cancelacion exitosa.");
                 if (cancelo)
                     {
-                        return Ok();
+                    log.Info("Cancelacion exitosa.");
+                    return Ok();
                     }
                     else {
-                        return BadRequest();
+                    log.Info("Cancelacion NO exitosa.");
+                    return BadRequest();
                     }
                    
                 //}
